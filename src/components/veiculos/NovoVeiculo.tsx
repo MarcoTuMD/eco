@@ -80,7 +80,8 @@ const NovoVeiculo: React.FC<NewEquipmentDialogProps> = ({
                     select
                 >
 
-                    <MenuItem key={"gasolina"} value={"gasolina"}>Gasolina</MenuItem>
+                    <MenuItem key={"gasolinaComum"} value={"gasolina comum"}>Gasolina Comum</MenuItem>
+                    <MenuItem key={"gasolinaAditivada"} value={"gasolina aditivada"}>Gasolina Aditivada</MenuItem>
                     <MenuItem key={"alcool"} value={"alcool"}>Alcool</MenuItem>
                     <MenuItem key={"diesel"} value={"diesel"}>Diesel</MenuItem>
 

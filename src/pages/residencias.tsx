@@ -32,7 +32,6 @@ export default function Residencias() {
 
     const handleClose = () => {
         setOpen(false);
-
     };
 
     const handleCloseEdit = () => {

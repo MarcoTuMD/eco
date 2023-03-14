@@ -1,7 +1,8 @@
 
+import { getLatLong } from "@/services/MapsService";
 import { editRestaurante, getRestaurante } from "@/services/RestauranteService";
 import { editVeiculo, getVeiculo } from "@/services/VeiculoService";
-import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent, Divider } from "@mui/material";
 import { useEffect, useState } from "react";
 
 interface EditEquipmentDialogProps {
@@ -56,6 +57,7 @@ const EditarRestaurante: React.FC<EditEquipmentDialogProps> = ({
 
     const handleSaveClick = async () => {
         if (nome != "" && taxa != "" && logradouro != "" && bairro != "" && numero != "" && cidade != "" && estado != "") {
+            const latLng = await getLatLong(+numero, logradouro, bairro, cidade, estado);
             const restaurante = {
                 id: id,
                 nome: nome,
@@ -65,6 +67,8 @@ const EditarRestaurante: React.FC<EditEquipmentDialogProps> = ({
                 numero: numero,
                 cidade: cidade,
                 estado: estado,
+                lat: latLng.lat,
+                lng: latLng.lng,
             }
             editRestaurante(id, restaurante);
             onClose();
@@ -102,6 +106,8 @@ const EditarRestaurante: React.FC<EditEquipmentDialogProps> = ({
                     onChange={(ev) => { setTaxa(ev.target.value); }}
                     required
                 />
+                <Divider>Endereço</Divider>
+
                 <TextField
                     autoFocus
                     margin="dense"

@@ -1,4 +1,5 @@
 
+import { getLatLong } from "@/services/MapsService";
 import { editResidencia, getResidencia, getResidencias } from "@/services/ResidenciaService";
 import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -52,6 +53,7 @@ const EditarResidencia: React.FC<EditEquipmentDialogProps> = ({
 
     const handleSaveClick = async () => {
         if (nome != "" && logradouro != "" && bairro != "" && numero != "" && cidade != "" && estado != "") {
+            const latLng = await getLatLong(+numero, logradouro, bairro, cidade, estado);
             const residencia = {
                 id: id,
                 nome: nome,
@@ -60,6 +62,8 @@ const EditarResidencia: React.FC<EditEquipmentDialogProps> = ({
                 numero: numero,
                 cidade: cidade,
                 estado: estado,
+                lat: latLng.lat,
+                lng: latLng.lng,
             }
             editResidencia(id, residencia);
             onClose();

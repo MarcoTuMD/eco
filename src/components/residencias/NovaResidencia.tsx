@@ -1,3 +1,4 @@
+import { getLatLong } from "@/services/MapsService";
 import { postResidencia } from "@/services/ResidenciaService";
 import { postRestaurante } from "@/services/RestauranteService";
 import { postVeiculo } from "@/services/VeiculoService";
@@ -33,6 +34,7 @@ const NovaResidencia: React.FC<NewEquipmentDialogProps> = ({
 
     const handleSaveClick = async () => {
         if (nome != "" && logradouro != "" && bairro != "" && numero != "" && cidade != "" && estado != "") {
+            const latLng = await getLatLong(+numero, logradouro, bairro, cidade, estado);
             const residencia = {
                 id: 0,
                 nome: nome,
@@ -41,6 +43,8 @@ const NovaResidencia: React.FC<NewEquipmentDialogProps> = ({
                 numero: numero,
                 cidade: cidade,
                 estado: estado,
+                lat: latLng.lat,
+                lng: latLng.lng,
             }
             postResidencia(residencia);
             onClose();

@@ -7,9 +7,12 @@ const Navbar: React.FC = () => {
     return (
         <AppBar position="static">
             <Toolbar>
-                <Typography variant="h6">
-                    ECO+
-                </Typography>
+                <Button color="inherit" onClick={() => router.push("/")}>
+                    <Typography variant="h6">
+                        ECO+
+                    </Typography>
+                </Button>
+
                 <Box sx={{ px: 6, m: "auto" }}>
                     <Button color="inherit" onClick={() => router.push("/restaurantes")}>Restaurantes</Button>
                     <Button color="inherit" onClick={() => router.push("/residencias")}>Residências</Button>

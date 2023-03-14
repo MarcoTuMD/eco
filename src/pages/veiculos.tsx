@@ -68,8 +68,8 @@ export default function Veiculos() {
 
 
     const columns: GridColDef[] = [
-        { field: 'nome', headerName: 'Nome', flex: 1 },
-        { field: 'eficiencia', headerName: 'Eficiência', flex: 0.5 },
+        { field: 'nome', headerName: 'Nome', flex: 0.5 },
+        { field: 'eficiencia', headerName: 'Eficiência', flex: 0.3 },
         { field: 'combustivel', headerName: 'Combustivel', flex: 0.5 },
         { field: 'editar', headerName: 'Editar', flex: 0.1, renderCell: renderCellEdit },
         { field: 'excluir', headerName: 'Excluir', flex: 0.1, renderCell: renderCellDelete }

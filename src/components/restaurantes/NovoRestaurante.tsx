@@ -1,6 +1,7 @@
+import { getLatLong } from "@/services/MapsService";
 import { postRestaurante } from "@/services/RestauranteService";
 import { postVeiculo } from "@/services/VeiculoService";
-import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, MenuItem } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, MenuItem, Divider } from "@mui/material";
 import React, { useState } from "react";
 
 
@@ -34,6 +35,7 @@ const NovoRestaurante: React.FC<NewEquipmentDialogProps> = ({
 
     const handleSaveClick = async () => {
         if (nome != "" && taxa != "" && logradouro != "" && bairro != "" && numero != "" && cidade != "" && estado != "") {
+            const latLng = await getLatLong(+numero, logradouro, bairro, cidade, estado);
             const restaurante = {
                 id: 0,
                 nome: nome,
@@ -43,6 +45,8 @@ const NovoRestaurante: React.FC<NewEquipmentDialogProps> = ({
                 numero: numero,
                 cidade: cidade,
                 estado: estado,
+                lat: latLng.lat,
+                lng: latLng.lng,
             }
             postRestaurante(restaurante);
             onClose();
@@ -81,6 +85,7 @@ const NovoRestaurante: React.FC<NewEquipmentDialogProps> = ({
                     onChange={(ev) => { setTaxa(ev.target.value); }}
                     required
                 />
+                <Divider>Endereço</Divider>
                 <TextField
                     autoFocus
                     margin="dense"
