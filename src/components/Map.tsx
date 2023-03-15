@@ -55,7 +55,7 @@ const Map: React.FC<MapPageProps> = ({ restaurante, residencia, veiculo }) => {
         setMap(map);
     };
 
-    const options = {
+    const options: any = {
         destinations: [{ lat: restaurante?.lat, lng: restaurante?.lng }],
         origins: [{ lng: residencia?.lng, lat: residencia?.lat }],
         travelMode: "DRIVING",
@@ -75,7 +75,7 @@ const Map: React.FC<MapPageProps> = ({ restaurante, residencia, veiculo }) => {
     }
 
     const renderResul = () => {
-        if (+(((1 * distanciaNum / 1000) / +veiculo?.eficiencia) * valCombustivel).toFixed(2) < +restaurante?.taxa) {
+        if (+(2 * ((1 * distanciaNum / 1000) / +veiculo?.eficiencia) * valCombustivel).toFixed(2) < +restaurante?.taxa) {
             return (<Typography variant="h5" color="green">Compensa!</Typography>)
         } else {
             return (<Typography variant="h5" color="red">Não Compensa!</Typography>)
@@ -92,7 +92,7 @@ const Map: React.FC<MapPageProps> = ({ restaurante, residencia, veiculo }) => {
                 {renderResul()}
             </Box>
             <Box>
-                <Typography variant="subtitle1" color="initial">Serão gastos R${(((1 * distanciaNum / 1000) / +veiculo?.eficiencia) * valCombustivel).toFixed(2)} para essa viagem</Typography>
+                <Typography variant="subtitle1" color="initial">Serão gastos R${(2 * ((1 * distanciaNum / 1000) / +veiculo?.eficiencia) * valCombustivel).toFixed(2)} para essa viagem</Typography>
             </Box>
             <Divider />
             <Box sx={{ display: "flex", flexDirection: "column" }}>

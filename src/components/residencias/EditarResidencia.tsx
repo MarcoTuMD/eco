@@ -1,7 +1,7 @@
 
 import { getLatLong } from "@/services/MapsService";
 import { editResidencia, getResidencia, getResidencias } from "@/services/ResidenciaService";
-import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent, Divider } from "@mui/material";
 import { useEffect, useState } from "react";
 
 interface EditEquipmentDialogProps {
@@ -90,6 +90,7 @@ const EditarResidencia: React.FC<EditEquipmentDialogProps> = ({
                     onChange={(ev) => { setNome(ev.target.value); }}
                     required
                 />
+                <Divider>Endereço</Divider>
                 <TextField
                     autoFocus
                     margin="dense"

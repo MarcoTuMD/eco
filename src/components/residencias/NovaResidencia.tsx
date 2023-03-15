@@ -2,7 +2,7 @@ import { getLatLong } from "@/services/MapsService";
 import { postResidencia } from "@/services/ResidenciaService";
 import { postRestaurante } from "@/services/RestauranteService";
 import { postVeiculo } from "@/services/VeiculoService";
-import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, MenuItem } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, MenuItem, Divider } from "@mui/material";
 import React, { useState } from "react";
 
 
@@ -72,6 +72,7 @@ const NovaResidencia: React.FC<NewEquipmentDialogProps> = ({
                     onChange={(ev) => { setNome(ev.target.value); }}
                     required
                 />
+                <Divider>Endereço</Divider>
                 <TextField
                     autoFocus
                     margin="dense"
