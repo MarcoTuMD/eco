@@ -34,23 +34,27 @@ const NovoRestaurante: React.FC<NewEquipmentDialogProps> = ({
     }
 
     const handleSaveClick = async () => {
-        if (nome != "" && taxa != "" && logradouro != "" && bairro != "" && numero != "" && cidade != "" && estado != "") {
-            const latLng = await getLatLong(+numero, logradouro, bairro, cidade, estado);
-            const restaurante = {
-                id: 0,
-                nome: nome,
-                taxa: taxa,
-                logradouro: logradouro,
-                bairro: bairro,
-                numero: numero,
-                cidade: cidade,
-                estado: estado,
-                lat: latLng.lat,
-                lng: latLng.lng,
+        if (nome != "" && taxa != "" && logradouro != "" && bairro != "" && numero != "" && cidade != "" && estado != "" && +numero > 0 && +taxa >= 0) {
+            try {
+                const latLng = await getLatLong(+numero, logradouro, bairro, cidade, estado);
+                const restaurante = {
+                    id: 0,
+                    nome: nome,
+                    taxa: taxa,
+                    logradouro: logradouro,
+                    bairro: bairro,
+                    numero: numero,
+                    cidade: cidade,
+                    estado: estado,
+                    lat: latLng.lat,
+                    lng: latLng.lng,
+                }
+                postRestaurante(restaurante);
+            } catch (error) {
+                alert("Endereço inválido!")
             }
-            postRestaurante(restaurante);
-            onClose();
-            limparCampos();
+
+
         }
     };
 
@@ -112,7 +116,7 @@ const NovoRestaurante: React.FC<NewEquipmentDialogProps> = ({
                     autoFocus
                     margin="dense"
                     id="numero"
-                    label="numero"
+                    label="Número"
                     type="number"
                     fullWidth
                     value={numero}

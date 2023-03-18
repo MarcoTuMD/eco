@@ -52,22 +52,28 @@ const EditarResidencia: React.FC<EditEquipmentDialogProps> = ({
 
 
     const handleSaveClick = async () => {
-        if (nome != "" && logradouro != "" && bairro != "" && numero != "" && cidade != "" && estado != "") {
-            const latLng = await getLatLong(+numero, logradouro, bairro, cidade, estado);
-            const residencia = {
-                id: id,
-                nome: nome,
-                logradouro: logradouro,
-                bairro: bairro,
-                numero: numero,
-                cidade: cidade,
-                estado: estado,
-                lat: latLng.lat,
-                lng: latLng.lng,
+        if (nome != "" && logradouro != "" && bairro != "" && numero != "" && cidade != "" && estado != "" && +numero > 0) {
+            try {
+                const latLng = await getLatLong(+numero, logradouro, bairro, cidade, estado);
+                const residencia = {
+                    id: id,
+                    nome: nome,
+                    logradouro: logradouro,
+                    bairro: bairro,
+                    numero: numero,
+                    cidade: cidade,
+                    estado: estado,
+                    lat: latLng.lat,
+                    lng: latLng.lng,
+                }
+                editResidencia(id, residencia);
+                onClose();
+                limparCampos();
+            } catch (error) {
+                alert("Endereço inválido");
             }
-            editResidencia(id, residencia);
-            onClose();
-            limparCampos();
+
+
         }
     };
 
@@ -117,7 +123,7 @@ const EditarResidencia: React.FC<EditEquipmentDialogProps> = ({
                     autoFocus
                     margin="dense"
                     id="numero"
-                    label="numero"
+                    label="Número"
                     type="number"
                     fullWidth
                     value={numero}

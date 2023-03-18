@@ -17,14 +17,17 @@ export default function Combustiveis() {
     const [dieselDis, setDieselDis] = useState(true);
 
     const handleChange = () => {
-        const combustiveis = {
-            gasolinaComum: gasComum,
-            gasolinaAditivada: gasAdi,
-            alcool: alcool,
-            diesel: diesel,
+        if (+gasComum >= 0 && +gasAdi >= 0 && +alcool >= 0 && +diesel >= 0) {
+            const combustiveis = {
+                gasolinaComum: gasComum,
+                gasolinaAditivada: gasAdi,
+                alcool: alcool,
+                diesel: diesel,
+            }
+            postCombustiveis(combustiveis);
+        } else {
+            alert("Valores negativos")
         }
-
-        postCombustiveis(combustiveis);
     }
 
     const getCombu = () => {

@@ -27,8 +27,6 @@ export default function Home() {
     }
   }
 
-
-
   useEffect(() => {
     setVeiculos(getVeiculos);
     setRestaurantes(getRestaurantes);

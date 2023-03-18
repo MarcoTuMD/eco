@@ -3,6 +3,7 @@ import { getLatLong } from "@/services/MapsService";
 import { editRestaurante, getRestaurante } from "@/services/RestauranteService";
 import { editVeiculo, getVeiculo } from "@/services/VeiculoService";
 import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent, Divider } from "@mui/material";
+import { idID } from "@mui/material/locale";
 import { useEffect, useState } from "react";
 
 interface EditEquipmentDialogProps {
@@ -56,23 +57,27 @@ const EditarRestaurante: React.FC<EditEquipmentDialogProps> = ({
 
 
     const handleSaveClick = async () => {
-        if (nome != "" && taxa != "" && logradouro != "" && bairro != "" && numero != "" && cidade != "" && estado != "") {
-            const latLng = await getLatLong(+numero, logradouro, bairro, cidade, estado);
-            const restaurante = {
-                id: id,
-                nome: nome,
-                taxa: taxa,
-                logradouro: logradouro,
-                bairro: bairro,
-                numero: numero,
-                cidade: cidade,
-                estado: estado,
-                lat: latLng.lat,
-                lng: latLng.lng,
+        if (nome != "" && taxa != "" && logradouro != "" && bairro != "" && numero != "" && cidade != "" && estado != "" && +numero > 0 && +taxa >= 0) {
+            try {
+                const latLng = await getLatLong(+numero, logradouro, bairro, cidade, estado);
+                const restaurante = {
+                    id: id,
+                    nome: nome,
+                    taxa: taxa,
+                    logradouro: logradouro,
+                    bairro: bairro,
+                    numero: numero,
+                    cidade: cidade,
+                    estado: estado,
+                    lat: latLng.lat,
+                    lng: latLng.lng,
+                }
+                editRestaurante(id, restaurante);
+                onClose();
+                limparCampos();
+            } catch (error) {
+                alert("Endereço inválido!")
             }
-            editRestaurante(id, restaurante);
-            onClose();
-            limparCampos();
         }
     };
 
@@ -134,7 +139,7 @@ const EditarRestaurante: React.FC<EditEquipmentDialogProps> = ({
                     autoFocus
                     margin="dense"
                     id="numero"
-                    label="numero"
+                    label="Número"
                     type="number"
                     fullWidth
                     value={numero}
