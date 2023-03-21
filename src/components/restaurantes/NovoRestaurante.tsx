@@ -50,6 +50,8 @@ const NovoRestaurante: React.FC<NewEquipmentDialogProps> = ({
                     lng: latLng.lng,
                 }
                 postRestaurante(restaurante);
+                onClose();
+                limparCampos();
             } catch (error) {
                 alert("Endereço inválido!")
             }
